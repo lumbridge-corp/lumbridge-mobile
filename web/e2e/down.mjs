@@ -1,0 +1,31 @@
+// The screens with no database: start the gateway WITHOUT LUMBRIDGE_DATABASE_URL, then
+//   BASE='http://127.0.0.1:18543/#token=...' node web/e2e/down.mjs [shots-dir]
+import { chromium } from "playwright";
+const shots = process.argv[2] ?? "/tmp";
+const browser = await chromium.launch({ channel: "chrome" });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, colorScheme: "dark", hasTouch: true, isMobile: true });
+const page = await ctx.newPage();
+await page.goto(process.env.BASE);
+await page.waitForSelector('nav a[href="#/notes"]');
+await page.click('nav a[href="#/notes"]');
+await page.waitForSelector(".d-notice:not([hidden])");
+await page.click(".d-add");
+await page.fill(".d-title", "Written with the database down");
+await page.waitForFunction(() => document.querySelector(".d-status")?.textContent.startsWith("Offline"), null, { timeout: 8000 });
+console.log("editor:", await page.textContent(".d-status"));
+await page.screenshot({ path: `${shots}/note-db-down-phone.png` });
+await page.goBack();
+await page.waitForSelector(".d-note");
+console.log("list row:", (await page.textContent(".d-note")).trim());
+await page.screenshot({ path: `${shots}/notes-db-down-phone.png` });
+await page.click('nav a[href="#/tasks"]');
+await page.waitForSelector(".d-notice:not([hidden])");
+await page.fill(".d-capture input", "Captured with the database down");
+await page.keyboard.press("Enter");
+await page.waitForSelector(".d-task.unsaved");
+await page.screenshot({ path: `${shots}/tasks-db-down-phone.png` });
+console.log("drafts kept:", await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith("lumbridge.")).map((k) => k.split(".").slice(0, 3).join(".")).join(", ")));
+await page.click('nav a[href="#/agents"]');
+await page.waitForTimeout(400);
+console.log("agents still renders:", (await page.textContent("main")).trim().slice(0, 40));
+await browser.close();

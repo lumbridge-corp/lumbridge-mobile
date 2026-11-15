@@ -1,0 +1,122 @@
+/* Today. td- prefixed, tokens only, so light and dark come with them. A phone is one column for a thumb; a computer gets the
+   capture box across the top and two columns under it, decisions on the left, machines and tasks on the right. 4 px grid. */
+.td { max-width: 1100px; margin: 0 auto; padding: calc(var(--safe-top) + var(--sp-4)) var(--sp-4) calc(var(--sp-6) + var(--sp-4)); display: flex; flex-direction: column; gap: var(--sp-5); }
+.td [hidden] { display: none !important; }
+
+/* ---- the head: the date, three numbers ---- */
+.td-head { display: flex; flex-direction: column; gap: var(--sp-3); }
+.td-titles { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+.td-kicker { margin: 0; font: 500 var(--fs-xs)/16px var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--fg-subtle); }
+.td-date { margin: 0; font-size: var(--fs-xl); line-height: 32px; font-weight: 600; letter-spacing: var(--tracking-tight); }
+.td-hud { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); }
+.td-stat { display: flex; flex-direction: column; gap: 0; min-width: 0; padding: var(--sp-1) 0; color: var(--fg); text-decoration: none; border-radius: var(--r-m); }
+.td-num { font-size: var(--fs-2xl); line-height: 40px; font-weight: 500; letter-spacing: var(--tracking-tight); font-variant-numeric: tabular-nums; }
+.td-label { font: 500 var(--fs-xs)/16px var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; }
+.td-stat.zero .td-num { color: var(--fg-subtle); }
+.td-stat.warn .td-num, .td-stat.warn .td-label { color: var(--warn); }
+.td-stat.ok .td-num { color: var(--ok); }
+.td-stat:focus-visible { outline-offset: 2px; }
+
+/* ---- capture ---- */
+.td-capture { display: flex; flex-direction: column; gap: var(--sp-2); }
+.td-field { display: flex; align-items: flex-end; gap: var(--sp-1); padding: 0 var(--sp-1) 0 var(--sp-4); background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-l); transition: border-color var(--t-fast) var(--ease); }
+.td-field:hover { border-color: var(--border-strong); }
+.td-field:focus-within { border-color: var(--border-strong); box-shadow: var(--ring); }
+.td-input { flex: 1; min-width: 0; min-height: var(--tap-lg); max-height: 200px; padding: 12px 0; margin: 0; background: none; border: 0; outline: 0; resize: none; line-height: 24px; overflow-y: auto; }
+.td-input::placeholder { color: var(--fg-subtle); }
+.td-mic, .td-send { flex: none; display: grid; place-items: center; width: var(--tap-lg); height: var(--tap-lg); border-radius: var(--r-m); color: var(--fg-muted); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+@media (hover: hover) { .td-mic:hover, .td-send:hover { background: var(--surface-2); color: var(--fg); } }
+.td-mic:active, .td-send:active { background: var(--surface-3); }
+.td-mic.on { background: var(--primary); color: var(--primary-fg); }
+.td-mic.listening, .td-mic.working { background: var(--primary); color: var(--primary-fg); }
+.td-mic.working { opacity: .6; }
+.td-send { display: none; color: var(--primary-fg); background: var(--primary); }
+@media (hover: hover) { .td-send:hover { background: var(--primary-hover); color: var(--primary-fg); } }
+.td-capture.has-text .td-send { display: grid; }
+.td-capture.has-text .td-mic, .td-capture.recording .td-send { display: none; }
+.td-capture.recording .td-mic[aria-pressed="true"] { display: grid; }
+.td-under { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); min-height: 32px; }
+.td-targets { display: flex; gap: var(--sp-2); }
+/* The picked one is a quiet step up, not the inbox filter's solid fill: this is a setting, not the thing to look at. */
+.td-target.on { background: var(--surface-3); color: var(--fg); border-color: var(--border-strong); }
+.td-said { flex: 1 1 160px; min-width: 0; margin: 0; font-size: var(--fs-sm); line-height: 20px; color: var(--fg-muted); }
+.td-said.live { color: var(--fg); font-variant-numeric: tabular-nums; }
+.td-said.bad { color: var(--danger); }
+
+/* ---- the columns ---- */
+.td-cols { display: flex; flex-direction: column; gap: var(--sp-5); }
+.td-col { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0; }
+.td-col:empty { display: none; }
+.td-sec { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.td-h { display: flex; align-items: center; gap: var(--sp-2); min-height: 24px; margin: 0; font: 500 var(--fs-xs)/16px var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--fg-muted); }
+.td-h-count { color: var(--fg-subtle); font-variant-numeric: tabular-nums; }
+.td-needs .td-h-label { color: var(--warn); }
+.td-h-link { margin-left: auto; display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 var(--sp-1); font: 500 var(--fs-sm)/1 var(--font); letter-spacing: 0; text-transform: none; color: var(--fg-muted); text-decoration: none; border-radius: var(--r-s); }
+@media (hover: hover) { .td-h-link:hover { color: var(--fg); } }
+.td-sec:has(.td-h-link) .td-h { margin: calc(var(--sp-3) * -1) 0 calc(var(--sp-2) * -1); }
+
+/* Needs you: the Agents tab's rows, without the inbox's side margins. */
+.td-rows { margin: 0; }
+.td .group.needs .group-rows { margin: 0; }
+
+.td-clear { margin: 0; padding: 0; font-size: var(--fs-lead); line-height: 28px; color: var(--fg-muted); }
+
+/* For you sits in the decisions column, its heading in the same voice as the others. */
+.td-fy:empty { display: none; }
+.td .fy { margin: 0; }
+.td .fy-heading { min-height: 24px; padding: 0; font: 500 var(--fs-xs)/16px var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--fg-muted); }
+.td .fy-count:not(:empty) { min-width: 0; padding: 0; color: var(--fg-subtle); background: none; border-radius: 0; font-size: var(--fs-xs); }
+.td .fy-mail-heading { margin: var(--sp-2) 0 0; }
+
+/* Machines: one line each, to the screen that has the rest. */
+.td-lines { display: flex; flex-direction: column; gap: var(--sp-2); }
+.td-line { display: flex; align-items: center; gap: var(--sp-3); min-height: 56px; padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4); color: var(--fg); text-decoration: none; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-m); transition: background-color var(--t-fast) var(--ease); }
+@media (hover: hover) { .td-line:hover { background: var(--surface-2); } }
+.td-line:active { background: var(--surface-2); }
+.td-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--fg-subtle); }
+.td-dot.danger { background: var(--danger); }
+.td-dot.warn { background: var(--warn); }
+.td-line-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.td-line-title { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-line-meta { font-size: var(--fs-xs); line-height: 16px; color: var(--fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-chev { flex: none; color: var(--fg-subtle); transform: rotate(-90deg); }
+
+/* Tasks: Tasks' own check ring, in a compact list. */
+.td-task-list { display: flex; flex-direction: column; }
+.td-task { display: flex; align-items: stretch; min-height: 48px; border-top: 1px solid var(--border); }
+.td-task:last-child { border-bottom: 1px solid var(--border); }
+.td-task .d-check { width: 40px; justify-content: flex-start; padding-left: 0; }
+.td-task.done .d-ring { background: var(--ok); border-color: var(--ok); }
+.td-task.done .td-task-title { color: var(--fg-muted); text-decoration: line-through; }
+.td-task.unsaved .d-ring { border-style: dashed; opacity: .6; }
+.td-task-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) 0; color: var(--fg); text-decoration: none; }
+.td-task-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-due { flex: none; font-size: var(--fs-xs); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.td-due.overdue { color: var(--danger); }
+.td-due.today { color: var(--warn); }
+
+/* ---- a computer ---- */
+@media (min-width: 900px) {
+  .td { padding: var(--sp-6) var(--sp-6) var(--sp-6); gap: var(--sp-6); }
+  .td-head { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--sp-6); }
+  .td-date { font-size: var(--fs-2xl); line-height: 40px; }
+  .td-hud { display: flex; gap: var(--sp-6); }
+  .td-stat { min-width: 72px; padding: 0; }
+  .td-num { font-size: var(--fs-2xl); }
+  .td-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); gap: var(--sp-6); align-items: start; }
+  .td-decide { min-height: 1px; }
+  .td-clear { padding: var(--sp-2) 0; }
+}
+@media (min-width: 900px) and (pointer: fine) {
+  .td-input { padding: 8px 0; }
+  .td-field { padding-left: var(--sp-3); }
+  .td-line { min-height: 48px; padding-left: var(--sp-3); }
+  .td-task { min-height: var(--row); }
+  .td-task .d-check { width: 36px; }
+  .td-h-link { min-height: var(--tap); }
+}
+
+/* Tasks' one line to For you, now that it lives here (views/tasks.ts). */
+.d-foryou { display: flex; align-items: center; min-height: var(--tap); margin: 0 var(--sp-4) var(--sp-1); padding: 0 var(--sp-1); font-size: var(--fs-sm); color: var(--fg-muted); text-decoration: none; border-radius: var(--r-s); }
+.d-foryou::after { content: "→"; margin-left: var(--sp-2); color: var(--fg-subtle); }
+@media (hover: hover) { .d-foryou:hover { color: var(--fg); } }

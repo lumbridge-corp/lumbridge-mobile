@@ -1,0 +1,107 @@
+/* The top of the Agents tab, over both of its views. */
+.agents-top { flex: none; flex-direction: column; align-items: stretch; gap: var(--sp-2); position: static; padding: calc(var(--safe-top) + var(--sp-2)) var(--sp-4) var(--sp-2); }
+.agents-line { display: flex; align-items: center; gap: var(--sp-3); min-height: var(--tap); }
+.agents-line h1 { font-size: var(--fs-xl); line-height: 1.1; letter-spacing: -.02em; margin: 0; font-weight: 700; flex: none; }
+.agents-line .inbox-sum { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-switch { flex: none; display: flex; background: var(--panel); border-radius: var(--r-m); }
+.list-btn { flex: none; height: var(--tap); padding: 0 12px; border: 2px solid transparent; border-radius: var(--r-m); background-clip: padding-box; font-size: var(--fs-sm); font-weight: 500; color: var(--dim); white-space: nowrap; transition: color var(--t-fast); }
+.list-btn.on { background-color: var(--line-strong); color: var(--text); }
+@media (hover: hover) { .list-btn:not(.on):hover { color: var(--text); } }
+:root[data-theme="light"] .list-btn.on { background-color: var(--bg); box-shadow: 0 0 0 1px var(--border); }
+@media (prefers-color-scheme: light) { :root:not([data-theme]) .list-btn.on { background-color: var(--bg); box-shadow: 0 0 0 1px var(--border); } }
+.agents-tools { display: flex; align-items: center; gap: var(--sp-1); }
+.find { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
+.find-ic { position: absolute; left: 12px; color: var(--faint); pointer-events: none; }
+.find-input { width: 100%; height: var(--tap); padding: 0 var(--tap) 0 36px; background: var(--panel); border: 1px solid transparent; border-radius: var(--r-m); appearance: none; -webkit-appearance: none; }
+.find-input::placeholder { color: var(--faint); opacity: 1; }
+.find-input::-webkit-search-cancel-button { display: none; }
+.find-input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.find-clear { position: absolute; right: 0; top: 0; width: var(--tap); height: var(--tap); display: grid; place-items: center; color: var(--dim); border-radius: var(--r-m); }
+.find-clear svg { width: 16px; height: 16px; }
+.find-clear:active { color: var(--text); }
+[data-list="panes"] .group-toggle, [data-finding] .group-toggle { display: none; }
+.place .inbox { min-height: 100%; }
+
+/* Panes: machine, then space, then tab, then the panes. Rows and chips are the inbox's, so both screens read alike. */
+.pm-lists { flex: 1; display: flex; flex-direction: column; padding-bottom: var(--sp-2); }
+.pm-machine { margin-top: var(--sp-4); padding: 0 var(--sp-2); }
+.panes .chips:not([hidden]) + .pm-lists > .pm-machine:first-child { margin-top: var(--sp-2); }
+.chips.pending { visibility: hidden; min-height: 44px; } /* its height is kept until the machines are known, so the list below doesn't jump */
+.pm-machine-head { margin: 0 0 var(--sp-2); padding: 0 var(--sp-2); font-size: var(--fs-sm); font-weight: 650; color: var(--text); letter-spacing: .01em; }
+.pm-note { margin: 0; padding: var(--sp-2); font-size: var(--fs-sm); color: var(--dim); }
+.pm-trouble { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 0 var(--sp-2) var(--sp-2); padding: var(--sp-3); border: 1px solid var(--line-strong); border-radius: var(--r-m); font-size: var(--fs-sm); line-height: 1.35; overflow-wrap: anywhere; }
+.pm-machine .pm-trouble { margin: 0; }
+.pm-why { color: var(--dim); font-size: var(--fs-xs); font-family: var(--mono); }
+.pm-retry { margin-top: var(--sp-2); min-height: 38px; padding: 0 var(--sp-3); font-size: var(--fs-sm); }
+.pm-empty { min-height: 50vh; }
+
+.pm-space { margin-bottom: var(--sp-2); border-radius: var(--r-m); background: var(--panel); overflow: hidden; }
+.pm-space-head { display: flex; align-items: center; gap: var(--sp-2); width: 100%; min-height: 54px; padding: 8px var(--sp-3) 8px var(--sp-2); text-align: left; border-radius: var(--r-m); }
+.pm-space-head:focus-visible { outline-offset: -2px; }
+@media (hover: hover) { .pm-space-head:hover { background: var(--panel-2); } }
+.pm-space-head:active { background: var(--panel-2); }
+.pm-chev { flex: none; color: var(--faint); transform: rotate(-90deg); transition: transform var(--t-fast); }
+.pm-space.open .pm-chev { transform: none; }
+.pm-space-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pm-space-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pm-marks { flex: none; display: flex; gap: 4px; }
+.pm-mark { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; font-size: var(--fs-xs); line-height: 20px; font-weight: 600; text-align: center; font-variant-numeric: tabular-nums; }
+.pm-mark.needs { background: var(--warn); color: var(--warn-fg); }
+.pm-mark.working { background: var(--surface-3); color: var(--fg); }
+.pm-mark.done { background: var(--done-soft); color: var(--done); }
+
+/* Needs you, By place: one line to By state, where they're listed with their questions. Below, each is marked in its place. */
+.pm-needs { display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); margin: var(--sp-1) var(--sp-2) 0; padding: 0 var(--sp-2) 0 var(--sp-3); border-radius: var(--r-m); background: var(--warn-soft); color: var(--text); font-size: var(--fs-sm); text-decoration: none; }
+.pm-needs .dot { margin-top: 0; background: var(--warn); }
+.pm-needs-title { font-weight: 600; }
+.pm-needs-count { color: var(--warn); font-weight: 600; font-variant-numeric: tabular-nums; }
+.pm-needs-go { margin-left: auto; color: var(--dim); }
+.pm-needs-chev { flex: none; color: var(--faint); transform: rotate(-90deg); }
+.pm-needs:focus-visible { outline-offset: -2px; }
+@media (hover: hover) { .pm-needs:hover .pm-needs-go { color: var(--text); } }
+.pm-needs:active { filter: brightness(1.08); }
+.pm-loose { margin-top: var(--sp-1); }
+
+/* Favorites, Recent and search results: one card of rows, the same as a space's. */
+.pm-quick { margin: 0 var(--sp-2); background: var(--panel); border-radius: var(--r-m); overflow: hidden; }
+.pm-results { margin-top: var(--sp-1); }
+
+.pm-tab { padding: 0 0 var(--sp-2); }
+.pm-tab + .pm-tab { border-top: 1px solid var(--line); padding-top: var(--sp-1); }
+.pm-tab-head { margin: 0; padding: var(--sp-2) var(--sp-3) 6px; font-size: var(--fs-xs); font-weight: 600; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* The tab's real arrangement, from the weights. Each box's outer edge is exact; the gap between them is its padding. */
+.pm-map { position: relative; height: 88px; margin: 0 var(--sp-2) var(--sp-1); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.pm-box { position: absolute; display: block; padding: 1.5px; color: var(--dim); text-decoration: none; }
+.pm-box-in { display: flex; align-items: flex-start; gap: 5px; height: 100%; padding: 6px 7px; overflow: hidden; border-radius: 7px; background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--line); font-size: var(--fs-xs); line-height: 14px; transition: background var(--t-fast); }
+.pm-box-in .dot { width: 7px; height: 7px; margin-top: 3px; }
+.pm-box-name { min-width: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+a.pm-box:active .pm-box-in { filter: brightness(1.08); }
+.pm-box.needs { color: var(--text); }
+.pm-box.needs .pm-box-in { background: var(--warn-soft); box-shadow: inset 0 0 0 1.5px var(--warn); }
+.pm-box.needs .dot { background: var(--warn); }
+.pm-box.working { color: var(--text); }
+.pm-box.working .pm-box-in { background: var(--surface-2); }
+.pm-box.working .dot { background: var(--fg); }
+.pm-box.done { color: var(--text); }
+.pm-box.done .pm-box-in { background: var(--done-soft); }
+.pm-box.done .dot { background: var(--done); }
+.pm-box.plain .dot, .pm-box.gone .dot, .pm-box.panel .dot, .pm-box.ended .dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.pm-box.gone .pm-box-in { background: transparent; box-shadow: none; border: 1px dashed var(--line-strong); color: var(--faint); }
+.pm-box.panel .pm-box-in { background: transparent; color: var(--faint); }
+.pm-box.open .pm-box-in { box-shadow: inset 0 0 0 2px var(--fg); }
+
+:is(.pm-rows, .pm-quick) .row:hover, :is(.pm-rows, .pm-quick) .row:active { background: var(--panel-2); }
+:is(.pm-rows, .pm-quick) .row-main { min-height:var(--row); padding-left: var(--sp-3); padding-right: var(--sp-3); }
+:is(.pm-rows, .pm-quick) .row + .row::before { left: 33px; }
+.pane-row.gone .dot, .pane-row.panel .dot, .pane-row.ended .dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.pane-row.gone .name, .pane-row.panel .name, .pane-row.ended .name { color: var(--dim); font-weight: 400; }
+.pane-row.gone .meta { color: var(--accent-text); }
+:is(.pm-rows, .pm-quick) .row.gone:hover, :is(.pm-rows, .pm-quick) .row.panel:hover, :is(.pm-rows, .pm-quick) .row.gone:active, :is(.pm-rows, .pm-quick) .row.panel:active { background: none; }
+:is(.pm-rows, .pm-quick) .row.open, :is(.pm-rows, .pm-quick) .row.open:hover { background: var(--panel-2); }
+/* Blocked, down here: the Needs you line above and the map already shout, so the row only says it with its dot. */
+:is(.pm-rows, .pm-quick) .row.needs { background: none; border-radius: 0; }
+:is(.pm-rows, .pm-quick) .row.needs:hover, :is(.pm-rows, .pm-quick) .row.needs:active { background: var(--panel-2); }
+:is(.pm-rows, .pm-quick) .row.needs + .row::before, :is(.pm-rows, .pm-quick) .row + .row.needs::before { display: block; }
+:is(.pm-rows, .pm-quick) .row.needs .row-main { padding: 9px var(--sp-3); }
+:is(.pm-rows, .pm-quick) .row.needs .meta { color: var(--warn); }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Lumbridge">
+  <!-- The Lumbridge mark (three blocks, one color), as the app icon: #fafafa on #0a0a0a, full bleed, 25% padding as the
+       brand's app exports have. iOS and Android round the tile themselves. -->
+  <rect width="32" height="32" fill="#0a0a0a"/>
+  <g transform="translate(4 4) scale(.75)" fill="#fafafa"><rect x="4" y="3" width="9" height="17"/><rect x="4" y="22" width="17" height="7"/><rect x="23" y="22" width="7" height="7"/></g>
+</svg>

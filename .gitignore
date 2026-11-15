@@ -1,0 +1,14 @@
+target/
+node_modules/
+dist/
+*.token
+app/src-tauri/gen/
+app/src-tauri/icons/
+gateway/target/
+app/src-tauri/target/
+# An instance's own screens, tests and deploy (see .export-exclude). They are compiled in when present, so a checkout can
+# hold them; this keeps a `git add -A` from publishing them. A private repository that does track them is unaffected
+# (git keeps tracking what it already tracks); add a new file there with `git add -f`.
+gateway/src/ext/
+web/src/ext/
+tests/ext/

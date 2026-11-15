@@ -1,0 +1,21 @@
+{
+  "name": "lumbridge-mobile-web",
+  "private": true,
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/check-sw.mjs && node scripts/compress.mjs",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5",
+    "vitest": "^3.2.7",
+    "ws": "^8.22.1"
+  },
+  "dependencies": {
+    "@xterm/xterm": "5.5.0"
+  }
+}

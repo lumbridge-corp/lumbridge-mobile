@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' ws: wss: https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Lumbridge">
+  <!-- Status bar text is white and sits over the page; style.css paints a dark strip behind it in the light theme. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <!-- Geist is preloaded and shown with font-display: block, so text never reflows when it arrives (a swap moved the Agents top).
+       Vite hashes these into /assets, the same files style.css asks for, so they are cached for good, not fetched on every load. -->
+  <link rel="preload" href="/src/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/src/fonts/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon-favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/icon-favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/icon-apple-touch-180.png">
+  <link rel="apple-touch-startup-image" href="/icon-splash-dark.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)">
+  <link rel="apple-touch-startup-image" href="/icon-splash-light.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)">
+  <title>Lumbridge</title>
+  <style>html{background:#0a0a0a}html[data-theme=light]{background:#fff}@media(prefers-color-scheme:light){html:not([data-theme]){background:#fff}}</style>
+  <script src="/theme-boot.js"></script>
+</head>
+<body><div id="app"></div><script type="module" src="/src/main.ts"></script></body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "default",
+  "description": "No native commands yet; the page only talks to the gateway.",
+  "windows": ["main"],
+  "permissions": []
+}

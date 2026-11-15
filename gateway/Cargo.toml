@@ -1,0 +1,48 @@
+[package]
+name = "lumbridge-mobile-server"
+version = "0.1.0"
+edition = "2021"
+description = "The Lumbridge Mobile server: terminals, notes and tasks from your phone, over your tailnet."
+license = "Apache-2.0"
+repository = "https://github.com/lumbridge-corp/lumbridge-mobile"
+homepage = "https://lumbridgecorp.com"
+publish = false
+
+[features]
+# Skips the tailnet identity check for local development. Debug builds only (main.rs has a compile_error for
+# release), loopback only, and TLS is refused at startup. Never deploy a binary built with it.
+dev-identity = []
+
+[dependencies]
+axum = { version = "0.7", features = ["ws", "http2"] }
+base64ct = { version = "1", features = ["alloc"] }
+chrono = { version = "0.4.45", default-features = false, features = ["clock", "serde"] }
+deadpool-postgres = { version = "0.14", default-features = false, features = ["rt_tokio_1"] }
+futures-util = "0.3"
+getrandom = "0.3"
+http = "1"
+hyper = "1"
+hyper-util = { version = "0.1", features = ["http1", "http2", "server-auto", "service", "tokio"] }
+libc = "0.2"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream", "multipart", "http2", "json"] }
+rustls-pemfile = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+subtle = "2"
+tokio = { version = "1", features = ["fs", "io-util", "macros", "net", "process", "rt-multi-thread", "sync", "time"] }
+toml = { version = "0.8", default-features = false, features = ["parse"] }
+tokio-postgres = { version = "0.7", default-features = false, features = ["runtime", "with-chrono-0_4", "with-uuid-1"] }
+# rustls with ring: no OpenSSL, and no C++/cmake toolchain for aws-lc.
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12", "logging"] }
+tower = { version = "0.5", features = ["util"] }
+tower-http = { version = "0.5", features = ["fs"] }
+uuid = { version = "1", features = ["serde", "v4"] }
+web-push-native = "0.5"
+
+[profile.release]
+strip = true
+lto = "thin"
+
+[dev-dependencies]
+tempfile = "3.27.0"

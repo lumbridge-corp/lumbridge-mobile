@@ -1,0 +1,60 @@
+/* Thoughts. th- on top of the shared d- styles; the colours come from style.css, and every target is at least 44px. */
+.th-hero { display:flex; flex-direction:column; align-items:center; gap:10px; padding:10px 16px 14px; }
+/* Stop has to stay under the owner's thumb however far the owner is scrolled. */
+.th-hero.on { position:sticky; top:0; z-index:3; background:var(--bg); border-bottom:1px solid var(--line); }
+.th-mic { position:relative; width:124px; height:124px; flex:none; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--panel); border:1px solid var(--line-strong); color:var(--text); touch-action:manipulation; -webkit-tap-highlight-color:transparent; -webkit-user-select:none; user-select:none; }
+.th-mic svg { width:44px; height:44px; position:relative; }
+.th-mic:active { background:var(--panel-2); }
+.th-mic:focus-visible { outline:2px solid var(--dim); outline-offset:3px; }
+.th-ring { position:absolute; inset:0; border-radius:50%; background:var(--accent-soft); opacity:0; pointer-events:none; will-change:transform; }
+.th-hero.starting .th-mic { color:var(--dim); }
+.th-hero.on .th-mic { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+.th-hero.on .th-ring { background:var(--accent); opacity:.28; }
+.th-stop { position:relative; display:none; width:34px; height:34px; border-radius:7px; background:currentColor; }
+.th-hero.on .th-stop { display:block; }
+.th-hero.on .th-mic .icw { display:none; }
+.th-status { display:flex; align-items:baseline; justify-content:center; gap:10px; min-height:24px; color:var(--dim); font-size:var(--fs-md); text-align:center; }
+.th-hero.on .th-status { color:var(--text); font-weight:600; }
+.th-clock { font-variant-numeric:tabular-nums; }
+.th-meter { width:min(220px, 70%); height:4px; border-radius:2px; background:var(--line); overflow:hidden; }
+.th-meter i { display:block; height:100%; width:100%; background:var(--accent); transform-origin:left; transform:scaleX(0); will-change:transform; }
+.th-live { margin:0 16px 12px; padding:10px 12px; max-height:30vh; overflow-y:auto; border-left:3px solid var(--accent); background:var(--panel); border-radius:0 10px 10px 0; font-size:var(--fs-md); line-height:1.45; overflow-wrap:anywhere; white-space:pre-wrap; }
+.th-compose { align-items:flex-end; }
+.th-compose textarea { flex:1; min-width:0; min-height:var(--tap-lg); max-height:30vh; padding:13px 0; background:none; border:0; outline:0; resize:none; font-size:16px; line-height:1.4; overflow-wrap:anywhere; }
+.th-compose textarea::placeholder { color:var(--dim); opacity:.8; }
+.th-day { padding:14px 16px 6px; color:var(--dim); font-size:13px; font-weight:600; }
+.th-row { display:block; width:100%; min-height:var(--row); padding:10px 16px; text-align:left; border-top:1px solid var(--line); }
+button.th-row:active { background:var(--panel); }
+.th-text { display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; white-space:pre-wrap; line-height:1.4; }
+.th-text.none { color:var(--dim); font-style:italic; }
+.th-meta { display:flex; flex-wrap:wrap; align-items:center; gap:2px 8px; margin-top:4px; font-size:12px; color:var(--dim); font-variant-numeric:tabular-nums; }
+.th-state { color:var(--work); font-weight:600; }
+.th-state.failed { color:var(--accent-text); }
+.th-in-notes { color:var(--done); font-weight:600; }
+.th-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.th-actions button { min-height:var(--tap); padding:0 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; font-weight:600; }
+.th-actions button.armed { color:var(--accent-text); border-color:var(--accent); }
+.th-sheet-text { flex:1 1 auto; min-height:38vh; }
+.th-sheet-meta { padding:0 16px 8px; font-size:12px; color:var(--dim); }
+.th-sheet-actions { display:flex; flex-wrap:wrap; gap:8px; padding:8px 16px 4px; border-top:1px solid var(--line); }
+.th-sheet-actions button { flex:1; min-height:var(--tap); padding:0 12px; border:1px solid var(--line); border-radius:10px; font-weight:600; }
+.th-sheet-actions button:disabled { opacity:.5; }
+@media (min-width:700px) { .th-mic { width:112px; height:112px; } .th-hero { padding-top:4px; } }
+/* A computer with a mouse: one line of --row, the time and state to its right. Opening a thought shows all of it. */
+@media (min-width: 900px) and (pointer: fine) {
+  .th-row { display: flex; flex-wrap: wrap; align-items: baseline; align-content: center; gap: 0 12px; padding: var(--row-pad) 16px; }
+  .th-text { flex: 1 1 0; min-width: 0; -webkit-line-clamp: 1; }
+  .th-meta { flex: none; margin-top: 0; }
+  .th-actions { flex: 0 0 100%; margin-bottom: 4px; }
+  .th-day { padding: var(--sp-4) var(--sp-4) var(--sp-2); font: 500 var(--fs-xs)/1.3 var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+  /* The mic is one control among others here, not the whole screen: a round button and its words on one line. */
+  .th-hero { flex-direction: row; justify-content: flex-start; gap: var(--sp-3); padding: 0 var(--sp-4) var(--sp-3); }
+  .th-hero.on { padding-top: var(--sp-3); }
+  .th-mic { width: var(--tap-lg); height: var(--tap-lg); }
+  .th-mic svg { width: 20px; height: 20px; }
+  .th-stop { width: 14px; height: 14px; border-radius: 3px; }
+  .th-status { justify-content: flex-start; text-align: left; }
+  .th-meter { width: 160px; }
+  .th-live { margin: 0 var(--sp-4) var(--sp-3); }
+  .th-compose { margin-bottom: var(--sp-3); }
+}

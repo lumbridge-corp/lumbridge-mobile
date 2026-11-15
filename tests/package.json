@@ -1,0 +1,8 @@
+{
+  "name": "lumbridge-mobile-ui-tests",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Playwright UI checks. Library only: uses the system Chrome and any installed WebKit; never run playwright install.",
+  "devDependencies": { "playwright": "^1.56.0" }
+}

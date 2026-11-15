@@ -1,0 +1,103 @@
+/* For you, at the top of Tasks. Big targets, one line per closed card, tokens only so light and dark come with them. */
+.fy { margin: 0 16px 12px; display: flex; flex-direction: column; gap: 8px; }
+.fy[hidden], .fy [hidden] { display: none !important; }
+.fy-heading { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0 2px; font-size: var(--fs-md); font-weight: 600; color: var(--text); }
+.fy-count:not(:empty) { min-width: 22px; padding: 1px 7px; font-size: var(--fs-xs); text-align: center; color: var(--accent-ink); background: var(--accent); border-radius: 11px; }
+.fy-warn { margin: 0; padding: 0 2px; font-size: var(--fs-sm); line-height: 1.35; color: var(--dim); }
+.fy-list { display: flex; flex-direction: column; gap: 8px; }
+
+.fy-card { min-width: 0; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--r-m); }
+.fy-card.answered { border-left-color: var(--done); }
+.fy-head {
+  display: flex; flex-direction: column; align-items: stretch; gap: 2px; width: 100%; min-height: 60px; padding: 10px 14px;
+  text-align: left; background: none; border: 0; color: var(--text); touch-action: manipulation;
+}
+.fy-head:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--r-m); }
+.fy-kind { font-size: var(--fs-xs); font-weight: 600; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fy-title { font-size: var(--fs-md); font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fy-card.open .fy-title { display: none; }
+.fy-card.open .fy-head { min-height: 48px; padding-bottom: 4px; justify-content: center; }
+
+.fy-body { display: flex; flex-direction: column; gap: 8px; padding: 0 12px 12px; }
+.fy-full-title { margin: 0 2px; font-size: var(--fs-lg); line-height: 1.3; overflow-wrap: anywhere; }
+.fy-text {
+  margin: 0; padding: 10px; font: var(--fs-md)/1.45 var(--font); color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: var(--r-s); white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; -webkit-user-select: text;
+}
+.fy-note { margin: 0 2px; font-size: var(--fs-md); line-height: 1.35; color: var(--text); overflow-wrap: anywhere; }
+.fy-note.bad { color: var(--accent-text); font-weight: 600; }
+/* The draft inside is the assistant tab's card, without its own frame. */
+.fy-body .ppd-card { padding: 0; background: none; border: 0; }
+
+.fy-tools, .fy-actions, .fy-reply-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.fy button.fy-listen, .fy-actions button, .fy-reply-actions button {
+  min-height: 52px; min-width: 96px; padding: 0 16px; font-size: var(--fs-md); font-weight: 600; border-radius: var(--r-s);
+  color: var(--text); background: var(--panel-2); border: 1px solid var(--line-strong); touch-action: manipulation;
+}
+.fy button:disabled { opacity: .5; }
+.fy button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.fy-listen.on { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.fy-actions button { flex: 1 1 0; }
+.fy-accept { color: var(--accent-ink) !important; background: var(--done) !important; border-color: var(--done) !important; }
+.fy-deny { color: var(--dim) !important; background: transparent !important; }
+.fy-reply-open.on { border-color: var(--text) !important; }
+.fy-replybox { display: flex; flex-direction: column; gap: 8px; }
+.fy-reply {
+  width: 100%; min-height: 84px; padding: 10px; font: var(--fs-input)/1.4 var(--font); color: var(--text); background: var(--bg);
+  border: 1px solid var(--line-strong); border-radius: var(--r-s); resize: vertical;
+}
+.fy-reply-actions button { flex: 1 1 0; }
+.fy-talk { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.fy-talk.listening { color: var(--accent-ink) !important; background: var(--accent) !important; border-color: var(--accent) !important; }
+.fy-talk.working { opacity: .7; }
+.fy-send { color: var(--accent-ink) !important; background: var(--accent) !important; border-color: var(--accent) !important; }
+
+/* An ask with options: one row per option, the whole row ticks it. */
+.fy-options { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.fy-option { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-s); }
+.fy-option.picked { border-color: var(--done); box-shadow: inset 3px 0 0 var(--done); }
+.fy-option-pick { display: flex; align-items: flex-start; gap: 12px; min-height: 52px; padding: 10px 12px; cursor: pointer; touch-action: manipulation; }
+.fy-tick { flex: none; width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--done); }
+.fy-tick:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.fy-option-words { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fy-option-label { font-size: var(--fs-md); font-weight: 600; line-height: 1.3; color: var(--text); overflow-wrap: anywhere; }
+.fy-option-detail { font-size: var(--fs-sm); line-height: 1.4; color: var(--dim); white-space: pre-wrap; overflow-wrap: anywhere; }
+.fy-option-link {
+  display: flex; align-items: center; min-height: 44px; margin: 0 12px 6px 48px; font-size: var(--fs-sm); font-weight: 600; color: var(--text); text-decoration: underline;
+}
+.fy-option-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Mail: what in the owner's inbox needs the owner. Always open, a few short lines each, the buttons as big as an ask's. */
+.fy-mail { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.fy-mail-heading { margin: 0; padding: 0 2px; font-size: var(--fs-sm); font-weight: 600; color: var(--dim); letter-spacing: var(--tracking-label); }
+.fy-mail-row { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px 12px; }
+.fy-mail-row.suspicious { border-left-color: var(--danger); }
+.fy-mail-top { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.fy-lock { display: inline-flex; color: var(--dim); }
+.fy-chip-suspicious {
+  padding: 1px 8px; font-size: var(--fs-xs); font-weight: 600; line-height: 1.5; color: var(--danger-fg);
+  background: var(--danger-solid); border-radius: 10px;
+}
+.fy-mail-line { margin: 0 2px; font-size: var(--fs-md); font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.fy-mail-why { margin: 0 2px; font-size: var(--fs-md); line-height: 1.4; color: var(--text); overflow-wrap: anywhere; }
+.fy-mail-row .ppd-elsewhere { margin: 0 2px; font-size: var(--fs-sm); color: var(--dim); }
+.fy-done { color: var(--accent-ink) !important; background: var(--done) !important; border-color: var(--done) !important; }
+.fy-wrong.on { border-color: var(--text) !important; }
+.fy-sort-to[aria-current] { opacity: .5; }
+.fy-mail-draft { margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); }
+.fy-mail-draft .ppd-card { padding: 0; background: none; border: 0; }
+.fy-mail-foot:not(:empty) { margin: 0; padding: 0 2px; font-size: var(--fs-sm); color: var(--dim); }
+
+/* A note idea: an agent's words as text, its https: links as links, and who it's from. */
+.fy-link { color: var(--link); overflow-wrap: anywhere; }
+.fy-idea-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; margin: 0 2px; font-size: var(--fs-sm); line-height: 1.4; }
+.fy-idea-meta dt { color: var(--dim); font-weight: 600; }
+.fy-idea-meta dd { margin: 0; min-width: 0; color: var(--text); overflow-wrap: anywhere; }
+.fy-open-note { color: var(--accent-ink) !important; background: var(--accent) !important; border-color: var(--accent) !important; }
+/* Edit & keep: the Notes editor's page, with Keep where its tools would be. */
+.fy-idea-editor .fy-editor-keep {
+  flex: none; min-height: 44px; min-width: 88px; margin-right: 8px; padding: 0 16px; font-size: var(--fs-md); font-weight: 600; border-radius: var(--r-s);
+  color: var(--accent-ink); background: var(--done); border: 1px solid var(--done); touch-action: manipulation;
+}
+.fy-idea-editor .fy-editor-keep:disabled { opacity: .5; }
+.fy-idea-editor .fy-editor-keep:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

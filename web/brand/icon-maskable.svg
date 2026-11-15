@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Lumbridge">
+  <!-- Maskable: the mark smaller and centred, so every corner stays inside the 80% safe circle any launcher may cut. -->
+  <rect width="32" height="32" fill="#0a0a0a"/>
+  <g transform="translate(5.46 6.08) scale(.62)" fill="#fafafa"><rect x="4" y="3" width="9" height="17"/><rect x="4" y="22" width="17" height="7"/><rect x="23" y="22" width="7" height="7"/></g>
+</svg>

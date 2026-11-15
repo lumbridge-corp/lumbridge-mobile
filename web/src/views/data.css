@@ -1,0 +1,194 @@
+/* Notes and tasks. Everything is d- prefixed, the colours come from style.css, and every target is at least 44px. */
+.d-view [hidden], .d-editor [hidden], .d-scrim [hidden] { display:none !important; }
+.d-view { max-width:760px; margin:0 auto; padding-bottom:calc(env(safe-area-inset-bottom) + 96px); }
+.d-head { display:flex; align-items:center; gap:10px; min-height:calc(env(safe-area-inset-top) + 55px); padding:calc(env(safe-area-inset-top) + 3px) 16px 8px; }
+.d-head h1 { font-size:var(--fs-xl); margin:0; flex:1; }
+.d-count { color:var(--dim); font-size:13px; }
+.d-add { display:flex; align-items:center; gap:4px; min-height:var(--tap); padding:0 14px 0 10px; border-radius:22px; background:var(--accent); color:var(--accent-ink); font-weight:600; }
+.d-icon { display:flex; align-items:center; justify-content:center; width:var(--tap); height:var(--tap); flex:none; color:var(--dim); border-radius:10px; }
+.d-icon:active { background:var(--panel); }
+.d-icon.on { color:var(--accent); }
+.d-icon:disabled { opacity:.4; }
+
+.d-search { display:flex; align-items:center; gap:8px; margin:4px 16px 10px; padding:0 12px; min-height:var(--tap); background:var(--panel); border:1px solid var(--line); border-radius:12px; color:var(--dim); }
+.d-search input { flex:1; min-width:0; min-height:var(--tap); margin:-1px 0; background:none; border:0; outline:0; color:var(--text); font-size:16px; -webkit-appearance:none; appearance:none; }
+.d-search:focus-within { border-color:var(--dim); box-shadow:var(--ring); }
+
+.d-notice { display:flex; align-items:center; gap:12px; margin:0 16px 10px; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:12px; font-size:14px; color:var(--dim); }
+.d-notice span { flex:1; }
+.d-notice button { min-height:var(--tap); padding:0 10px; color:var(--text); font-weight:600; flex:none; }
+
+.d-note { display:flex; align-items:flex-start; gap:12px; width:100%; min-height:60px; padding:12px 16px; text-align:left; border-top:1px solid var(--line); }
+.d-note:active { background:var(--panel); }
+.d-note-text { display:flex; flex-direction:column; gap:2px; flex:1; min-width:0; }
+.d-note-title { display:flex; align-items:center; gap:6px; font-weight:600; min-width:0; }
+.d-note-title > span:last-child { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.d-note-preview { font-size:14px; color:var(--dim); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; }
+.d-note-when { flex:none; font-size:12px; color:var(--dim); padding-top:3px; }
+.d-pin { display:inline-flex; color:var(--accent); flex:none; }
+.d-pin svg { width:15px; height:15px; }
+.d-flag { font-size:12px; color:var(--warn); font-weight:600; white-space:nowrap; }
+.d-flag.quiet { color:var(--work); font-weight:500; }
+.d-more { display:block; width:100%; min-height:var(--tap-lg); color:var(--dim); border-top:1px solid var(--line); font-size:14px; }
+.d-empty { padding:40px 24px; text-align:center; color:var(--dim); }
+.d-empty p { margin:0 0 14px; }
+.d-empty-title { color:var(--text); font-size:18px; font-weight:600; margin-bottom:6px !important; }
+
+.d-section { margin-top:18px; }
+.d-section summary { display:flex; align-items:center; min-height:var(--tap); padding:0 16px; color:var(--dim); font-size:13px; cursor:pointer; list-style:none; }
+.d-section summary::-webkit-details-marker { display:none; }
+.d-section summary::before { content:""; width:7px; height:7px; margin-right:10px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(-45deg); transition:transform .15s; }
+.d-section[open] summary::before { transform:rotate(45deg); }
+.d-trash { display:flex; align-items:center; gap:12px; min-height:var(--row); padding:4px 16px; border-top:1px solid var(--line); }
+.d-trash .d-note-title { flex:1; font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; }
+.d-trash button { min-height:var(--tap); padding:0 10px; color:var(--text); font-weight:600; flex:none; }
+
+/* Sized from the visual viewport (data-ui.ts) so the keyboard can't sit on top of the text being typed. */
+.d-editor { position:fixed; left:0; right:0; top:var(--d-top, 0); height:var(--d-vh, 100dvh); z-index:50; display:flex; flex-direction:column; background:var(--bg); }
+.d-bar { display:flex; align-items:center; gap:2px; padding:calc(env(safe-area-inset-top) + 4px) 4px 4px; border-bottom:1px solid var(--line); flex:none; }
+.d-status { flex:1; min-width:0; font-size:13px; color:var(--dim); padding:0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.d-status.conflict, .d-status.deleted, .d-status.rejected { color:var(--danger); font-weight:600; }
+.d-page { flex:1; min-height:0; display:flex; flex-direction:column; width:100%; max-width:760px; margin:0 auto; padding:0 16px; padding-bottom:env(safe-area-inset-bottom); }
+.d-title { flex:none; width:100%; min-height:var(--row); padding:12px 0 6px; background:none; border:0; outline:0; font-size:var(--fs-lg); font-weight:700; }
+.d-body { flex:1; min-height:0; width:100%; padding:6px 0 16px; background:none; border:0; outline:0; resize:none; font-size:16px; line-height:1.5; overflow-wrap:anywhere; }
+.d-title::placeholder, .d-body::placeholder, .d-sheet-notes::placeholder { color:var(--dim); opacity:.8; }
+.d-preview { flex:1; min-height:0; overflow-y:auto; padding:6px 0 24px; line-height:1.5; overflow-wrap:anywhere; }
+.d-preview h1 { font-size:var(--fs-lg); margin:18px 0 8px; } .d-preview h2 { font-size:var(--fs-lead); margin:16px 0 6px; letter-spacing:0; text-transform:none; color:var(--text); font-weight:700; } .d-preview h3 { font-size:var(--fs-input); margin:14px 0 6px; }
+.d-preview p { margin:0 0 10px; white-space:pre-wrap; }
+.d-preview a { color:var(--link); }
+.d-preview code { background:var(--panel); padding:1px 5px; border-radius:5px; font-size:14px; font-family:ui-monospace,Menlo,Consolas,monospace; }
+.d-preview pre { background:var(--panel); padding:10px 12px; border-radius:8px; overflow-x:auto; font-size:14px; margin:0 0 10px; font-family:ui-monospace,Menlo,Consolas,monospace; }
+.d-preview blockquote { margin:0 0 10px; padding-left:12px; border-left:3px solid var(--line); color:var(--dim); white-space:pre-wrap; }
+.d-preview ul, .d-preview ol { margin:0 0 10px; padding-left:22px; }
+.d-preview hr { border:0; border-top:1px solid var(--line); margin:16px 0; }
+.d-li-check { list-style:none; margin-left:-22px; display:flex; gap:8px; }
+.d-li-check.done { color:var(--dim); }
+.d-box { display:inline-flex; align-items:center; justify-content:center; flex:none; width:18px; height:18px; margin-top:3px; border:1.5px solid var(--dim); border-radius:4px; font-size:13px; line-height:1; }
+
+.d-conflict { flex:none; max-height:45%; overflow-y:auto; padding:12px 16px; background:var(--panel); border-bottom:1px solid var(--line); font-size:14px; }
+.d-conflict p { margin:0 0 10px; }
+.d-conflict-actions { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+.d-conflict-actions button { min-height:var(--tap); padding:0 14px; border-radius:10px; font-weight:600; border:1px solid var(--line); }
+.d-conflict-actions button.primary { border-color:var(--accent); }
+.d-conflict-actions button:disabled { opacity:.5; }
+.d-other summary { min-height:var(--tap); display:flex; align-items:center; color:var(--dim); font-size:13px; padding:0; }
+.d-other-title { font-weight:600; margin:0 0 4px !important; overflow-wrap:anywhere; }
+.d-other-body { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; color:var(--dim); }
+
+.d-toast { position:fixed; z-index:70; left:16px; right:16px; max-width:480px; margin:0 auto; bottom:max(calc(var(--d-kb, 0px) + 12px), calc(env(safe-area-inset-bottom) + 60px)); display:flex; align-items:center; gap:12px; padding:6px 8px 6px 14px; min-height:var(--tap-lg); background:var(--panel); border:1px solid var(--line); border-radius:12px; font-size:14px; box-shadow:var(--shadow); }
+.d-toast span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.d-toast button { flex:none; min-height:var(--tap); padding:0 10px; color:var(--accent); font-weight:700; }
+
+.d-capture { display:flex; align-items:center; margin:4px 16px 6px; padding-left:12px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+.d-capture:focus-within { border-color:var(--dim); box-shadow:var(--ring); }
+.d-capture input { flex:1; min-width:0; min-height:var(--tap-lg); background:none; border:0; outline:0; font-size:16px; }
+.d-capture .d-icon { color:var(--text); }
+.d-hint { display:block; width:calc(100% - 32px); min-height:var(--tap); margin:0 16px 4px; padding:0 2px; text-align:left; font-size:13px; color:var(--work); }
+
+.d-task { position:relative; overflow:hidden; border-top:1px solid var(--line); }
+.d-task-front { position:relative; display:flex; align-items:stretch; min-height:56px; background:var(--bg); touch-action:pan-y; transition:transform .18s ease; }
+.d-task.swiping .d-task-front { transition:none; }
+.d-swipe-bg { position:absolute; inset:0; display:flex; align-items:center; padding-left:20px; background:var(--line); color:var(--dim); }
+.d-task.armed .d-swipe-bg { background:var(--done); color:var(--primary-fg); }
+.d-check { flex:none; width:52px; display:flex; align-items:center; justify-content:center; }
+.d-ring { width:24px; height:24px; border-radius:50%; border:1.8px solid var(--dim); display:flex; align-items:center; justify-content:center; color:var(--primary-fg); }
+.d-ring svg { width:15px; height:15px; stroke-width:2.6; }
+.d-check:active .d-ring { background:var(--panel); }
+.d-check:disabled .d-ring { border-style:dashed; opacity:.6; }
+.d-task.done .d-ring { background:var(--done); border-color:var(--done); }
+.d-task-main { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:9px 16px 9px 0; text-align:left; }
+.d-task-title { overflow-wrap:anywhere; }
+.d-task.done .d-task-title { color:var(--dim); text-decoration:line-through; }
+.d-task-meta { display:flex; align-items:center; flex-wrap:wrap; gap:4px 8px; font-size:12px; color:var(--dim); }
+.d-has-notes { min-width:0; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.d-due.overdue { color:var(--danger); font-weight:600; }
+.d-due.today { color:var(--work); font-weight:600; }
+
+.d-scrim { position:fixed; left:0; right:0; top:var(--d-top, 0); height:var(--d-vh, 100dvh); z-index:50; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; background:rgba(0,0,0,.5); }
+.d-sheet { width:100%; max-width:560px; max-height:100%; display:flex; flex-direction:column; overflow-y:auto; padding:0 0 calc(env(safe-area-inset-bottom) + 12px); background:var(--bg); border:1px solid var(--line); border-bottom:0; border-radius:16px 16px 0 0; }
+.d-sheet .d-bar { padding:4px; position:sticky; top:0; background:var(--bg); z-index:1; }
+.d-done { flex:none; min-height:var(--tap); padding:0 14px; color:var(--text); font-weight:700; }
+.d-sheet-title { flex:none; display:block; width:calc(100% - 32px); margin:10px 16px 0; padding:0; background:none; border:0; outline:0; resize:none; overflow:hidden; font-size:18px; font-weight:600; line-height:1.35; }
+.d-sheet-notes { flex:none; display:block; width:calc(100% - 32px); min-height:96px; margin:8px 16px; padding:0; background:none; border:0; outline:0; resize:none; font-size:16px; line-height:1.45; }
+.d-due-row { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px 16px 4px; border-top:1px solid var(--line); }
+.d-date { min-height:var(--tap); flex:1 1 100%; padding:0 10px; background:var(--panel); border:1px solid var(--line); border-radius:10px; font-size:16px; }
+.d-chip { flex:1; min-height:var(--tap); padding:0 8px; background:var(--panel); border:1px solid var(--line); border-radius:10px; font-size:14px; white-space:nowrap; }
+@media (min-width:700px) { .d-date { flex:1 1 auto; } .d-scrim { justify-content:center; } .d-sheet { border-radius:16px; border-bottom:1px solid var(--line); } }
+
+/* Where a note opens on a computer (notes.ts); a phone's editor covers the screen instead. */
+.n-dock { display: none; }
+
+/* A computer with a mouse (style.css's density block): the page column is style.css's, and a row is one line of --row (40 px).
+   Phones keep the above. */
+@media (min-width: 900px) and (pointer: fine) {
+  .d-view { padding-bottom: var(--sp-6); }
+  .d-search, .d-capture { margin: 0 var(--sp-4) var(--sp-3); }
+  .d-search { border-radius: var(--r-m); }
+  .d-capture { border-radius: var(--r-m); padding-left: var(--sp-3); }
+  .d-capture input { min-height: var(--tap-lg); }
+  .d-capture .d-icon { width: var(--tap-lg); height: var(--tap-lg); }
+  .d-icon { border-radius: var(--r-m); }
+  @media (hover: hover) { .d-icon:hover:not(:disabled) { color: var(--text); background: var(--surface-2); } }
+  .d-add { min-height: var(--tap); padding: 0 var(--sp-3) 0 10px; border-radius: var(--r-m); font-weight: 500; }
+  .d-add svg { width: 18px; height: 18px; }
+  .d-notice { margin: 0 var(--sp-4) var(--sp-3); border-radius: var(--r-m); font-size: var(--fs-md); }
+  .d-note, .d-task, .d-trash, .d-more { border-top-color: var(--border); }
+  .d-list { border-bottom: 1px solid var(--border); }
+  .d-list:empty { border-bottom: 0; }
+  .d-note { align-items: center; min-height: var(--row); padding: var(--row-pad) var(--sp-4); }
+  @media (hover: hover) { .d-note:hover, .d-task:hover .d-task-front, button.th-row:hover { background: var(--surface-1); } }
+  .d-note-text { flex-direction: row; align-items: baseline; gap: 12px; }
+  .d-note-title { flex: 0 1 auto; max-width: 45%; }
+  .d-note-preview { flex: 1; min-width: 0; -webkit-line-clamp: 1; font-size: var(--fs-md); }
+  .d-note-when { padding-top: 0; }
+  .d-task-front { min-height: var(--row); }
+  .d-check { width: 48px; }
+  .d-ring { width: 18px; height: 18px; border-width: 1.5px; }
+  .d-ring svg { width: 12px; height: 12px; }
+  .d-task-main { flex-direction: row; align-items: center; justify-content: flex-start; gap: 12px; padding: var(--row-pad) 16px var(--row-pad) 0; }
+  .d-task-title { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .d-task-meta { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; }
+  .d-trash { min-height: var(--row); }
+  .d-section { margin-top: var(--sp-4); }
+  .d-section summary { padding: 0 var(--sp-4); font: 500 var(--fs-xs)/1.3 var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+  .d-empty { padding: var(--sp-6) var(--sp-5); }
+  .d-empty-title { font-size: var(--fs-lead); }
+
+  /* Notes: the list on the left, the open note beside it (notes.ts, the dock). */
+  .n-split { display: grid; grid-template-columns: minmax(320px, 400px) minmax(0, 1fr); height: 100%; }
+  .n-split > .d-view { max-width: none; margin: 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-right: 1px solid var(--border); }
+  .n-split .d-list { border-bottom: 0; }
+  .n-split .d-note { align-items: flex-start; min-height: 0; padding: 10px var(--sp-4); border-top: 0; border-radius: 0; }
+  .n-split .d-note + .d-note { box-shadow: inset 0 1px 0 var(--border); }
+  .n-split .d-note-text { flex-direction: column; align-items: stretch; gap: 2px; }
+  .n-split .d-note-title { max-width: none; }
+  .n-split .d-note-when { padding-top: 1px; }
+  .n-split .d-note.on, .n-split .d-note.on:hover { background: var(--surface-2); box-shadow: inset 2px 0 0 var(--fg); }
+  .n-split .d-note.on + .d-note { box-shadow: none; }
+  .n-dock { display: block; position: relative; min-width: 0; min-height: 0; background: var(--bg); }
+  .n-idle { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-3); padding: var(--sp-5); color: var(--fg-muted); text-align: center; }
+  .n-idle p { margin: 0; }
+  .n-idle-mark svg { width: 40px; height: 40px; color: var(--fg-subtle); }
+  .n-dock .d-editor { position: absolute; inset: 0; height: auto; z-index: 1; }
+  .n-dock .d-bar { min-height: 56px; padding: var(--sp-2) var(--sp-4) var(--sp-3) var(--sp-3); gap: var(--sp-1); border-bottom: 0; }
+  /* The text starts under the back arrow and stops at a reading width, left-aligned with the bar rather than floating mid-pane. */
+  .n-dock .d-page { max-width: 768px; margin: 0; padding: 0 var(--sp-5); }
+  .n-dock .d-conflict { padding: var(--sp-3) var(--sp-5); }
+  .n-dock .d-title { padding-top: var(--sp-2); font-size: var(--fs-xl); letter-spacing: var(--tracking-tight); }
+  .n-dock .d-body, .n-dock .d-preview { font-size: var(--fs-input); line-height: 1.6; }
+}
+
+/* The shared error state (errorState in data-ui.ts): a dot and what happened in the tone's color, what to do in muted ink. */
+.d-error-slot[hidden] { display:none; }
+.d-error { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; padding:11px 12px 11px 14px; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--r-l); }
+.d-error-words { flex:1 1 22em; min-width:0; }
+.d-error-what { position:relative; margin:0; padding-left:16px; font-size:var(--fs-md); font-weight:600; line-height:20px; color:var(--danger); overflow-wrap:anywhere; }
+.d-error-what::before { content:""; position:absolute; left:0; top:6px; width:8px; height:8px; border-radius:50%; background:currentColor; }
+.d-error.warn .d-error-what { color:var(--warn); }
+.d-error.note .d-error-what { padding-left:0; font-weight:500; color:var(--fg); }
+.d-error.note .d-error-what::before { content:none; }
+.d-error-next { margin:2px 0 0 16px; font-size:var(--fs-sm); line-height:18px; color:var(--fg-muted); overflow-wrap:anywhere; }
+.d-error.note .d-error-next { margin-left:0; }
+.d-error-retry { flex:none; margin-left:auto; min-height:var(--tap); padding:0 14px; border-radius:var(--r-m); background:var(--surface-3); border:1px solid var(--border); color:var(--fg); font-size:var(--fs-sm); font-weight:600; }
+.d-error-retry:hover { background:var(--border); }
+.d-error-retry:focus-visible { outline-offset:2px; }

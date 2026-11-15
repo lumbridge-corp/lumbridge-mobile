@@ -1,0 +1,50 @@
+.settings h2 { margin:22px 16px 8px; }
+.set-card { margin:0 16px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-l); overflow:hidden; }
+.set-card > p:first-child { margin-top:14px; }
+.set-lead { margin:0 16px 4px; font-weight:600; font-size:16px; }
+.set-lead.on { color:var(--done); }
+.set-body { margin:0 16px 14px; color:var(--dim); font-size:14px; }
+.set-note { margin:0 16px 14px; font-size:14px; color:var(--dim); }
+.set-steps { margin:0 16px 14px; padding-left:20px; font-size:14px; }
+.set-steps li { padding:3px 0; }
+.set-wide { display:block; width:calc(100% - 32px); min-height:var(--tap-lg); margin:0 16px 14px; }
+.set-actions { display:flex; gap:10px; margin:0 16px 14px; }
+.set-button { flex:1; min-height:var(--tap); padding:0 12px; border:1px solid var(--line); border-radius:var(--r-m); background:var(--bg); font-size:14px; transition:background-color var(--t-fast) var(--ease); }
+@media (hover: hover) { .set-button:hover:not(:disabled) { background:var(--surface-2); } }
+.set-button:active { background:var(--line); }
+.set-button:disabled { opacity:.5; }
+.set-row { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:var(--row); padding:10px 16px; }
+.set-row + .set-row { border-top:1px solid var(--line); }
+.set-text { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.set-title { font-size:16px; }
+.set-hint { font-size:13px; color:var(--dim); }
+.set-value { color:var(--dim); font-size:14px; text-align:right; font-variant-numeric:tabular-nums; }
+.set-switch { appearance:none; -webkit-appearance:none; flex:none; position:relative; width:50px; height:30px; margin:0; border-radius:15px; background:var(--border-strong); cursor:pointer; transition:background .15s; }
+.set-switch::after { content:""; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--text); transition:transform .15s; }
+.set-switch:checked { background:var(--primary); }
+.set-switch:checked::after { background:var(--primary-fg); }
+.set-switch:checked::after { transform:translateX(20px); }
+.set-switch:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+.set-times { display:flex; gap:12px; padding:0 16px 12px; border-top:0; }
+.set-time { flex:1; display:flex; flex-direction:column; gap:4px; font-size:13px; color:var(--dim); }
+.set-time input { width:100%; min-height:var(--tap); padding:0 10px; background:var(--bg); border:1px solid var(--line); border-radius:var(--r-m); color:var(--text); font-size:16px; font-variant-numeric:tabular-nums; }
+.set-clock { margin:0 16px 12px; }
+.set-theme { margin:12px 12px 8px; max-width:360px; }
+.set-theme + .set-hint { display:block; margin:0 16px 12px; }
+/* A computer with a mouse: the page column is style.css's. Section labels and rows at the density the other screens use. */
+@media (min-width: 900px) and (pointer: fine) {
+  .settings { padding-bottom: var(--sp-6); }
+  .settings h2 { margin: var(--sp-5) var(--sp-4) var(--sp-2); }
+  .settings > header + h2 { margin-top: var(--sp-2); }
+  .set-card { margin: 0 var(--sp-4); }
+  .set-row { min-height: var(--tap-lg); padding: var(--sp-2) var(--sp-4); }
+  .set-title, .set-lead { font-size: var(--fs-md); }
+  .set-lead { margin-top: var(--sp-4); }
+  .set-body, .set-note, .set-steps, .set-value { font-size: var(--fs-md); }
+  .set-wide { width: auto; display: inline-flex; margin: 0 var(--sp-4) var(--sp-4); padding: 0 var(--sp-4); min-height: var(--tap); }
+  .set-actions { max-width: 480px; }
+  .set-switch { width: 36px; height: 20px; border-radius: 10px; }
+  .set-switch::after { width: 16px; height: 16px; top: 2px; left: 2px; }
+  .set-switch:checked::after { transform: translateX(16px); }
+  .set-theme { margin: var(--sp-3) var(--sp-3) var(--sp-2); }
+}

@@ -1,0 +1,37 @@
+/* A row that's asking is a card: what kind of ask, the question as the main line, then who's asking, quietly. Its choices
+   (data-fit, choices-logic.ts) all look the same: Allow is never louder than No. */
+:root { --ask-bg: var(--warn-soft); --ask-line: rgba(245,165,36,.22); --ask-btn: var(--surface-3); --err-line: rgba(255,97,102,.24); }
+:root[data-theme="light"] { --ask-bg: #fdf6e8; --ask-line: #f0dcb4; --ask-btn: #fff; --err-line: #f2c9c7; }
+@media (prefers-color-scheme: light) { :root:not([data-theme]) { --ask-bg: #fdf6e8; --ask-line: #f0dcb4; --ask-btn: #fff; --err-line: #f2c9c7; } }
+
+.row.asking { background: var(--ask-bg); border-radius: var(--r-m); box-shadow: inset 0 0 0 1px var(--ask-line); }
+.row.asking.error { background: var(--danger-soft); box-shadow: inset 0 0 0 1px var(--err-line); }
+.row.asking:hover, .row.asking:active { background: var(--ask-bg); box-shadow: inset 0 0 0 1px var(--warn); }
+.row.asking.error:hover, .row.asking.error:active { background: var(--danger-soft); box-shadow: inset 0 0 0 1px var(--danger); }
+.row.asking .row-main { padding: 8px 12px 6px; }
+.row.asking .dot { display: none; }
+.row.asking .row-body { flex-flow: row wrap; align-items: baseline; column-gap: 6px; row-gap: 2px; }
+.row.asking .row-l1 { display: contents; }
+.row.asking .row-kind { order: 0; font: 500 var(--fs-xs)/1.4 var(--mono); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+.row.asking.error .row-kind { color: var(--danger); }
+.row.asking .row-age { order: 1; }
+.row.asking .row-ask { order: 2; flex: 0 0 100%; margin: 1px 0 2px; font-size: var(--fs-md); font-weight: 500; line-height: 1.3; opacity: 1; -webkit-line-clamp: 3; }
+.row.asking .name, .row.asking .meta { order: 3; font-size: var(--fs-xs); font-weight: 500; color: var(--dim); }
+.row.asking .row-program { order: 4; }
+.row.asking .row-pin { order: 5; }
+.row.asking .meta { order: 6; flex: 1 1 0; min-width: 6em; font-weight: 400; }
+.row.asking .meta:not(:empty)::before { content: "· "; }
+
+/* A row: up to three on one line, each as wide as its words wants (grid auto tracks: "Yes" stays small, the long ones share the rest
+   and wrap inside the button), so a Permission card isn't three buttons tall. A stack: four or more, or words too long to share. */
+.row-choices { flex: 0 0 100%; display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 6px; padding: 0 12px 10px; }
+.row-choices .choice { min-width: 0; text-align: center; background: var(--ask-btn); box-shadow: inset 0 0 0 1px var(--border); }
+.row-choices .choice.armed { background: var(--primary); color: var(--primary-fg); box-shadow: none; }
+.row-choices[data-fit="stack"] { grid-auto-flow: row; gap: 4px; }
+.row-choices[data-fit="stack"] .choice { text-align: left; padding-left: 12px; }
+.row-choices[data-fit="stack"] .choice::before { content: attr(data-key); display: inline-block; width: 20px; font: var(--fs-xs) var(--mono); color: var(--fg-subtle); }
+.row-choices .choice.armed::before { color: inherit; }
+@media (min-width: 900px) and (pointer: fine) {
+  .row.asking .row-main { padding: 8px 10px 6px; }
+  .row-choices { padding: 0 10px 10px; }
+}

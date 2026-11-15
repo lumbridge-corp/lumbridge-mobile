@@ -1,0 +1,115 @@
+/* What the assistant has drafted, at the top of its tab. Tokens only, so light and dark come with them. */
+.ppd {
+  grid-area: drafts;
+  min-height: 0;
+  max-height: 56dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.ppd[hidden] { display: none; }
+.ppd-heading { margin: 0; padding: 2px 6px 0; font-size: var(--fs-sm); font-weight: 600; color: var(--warn); }
+.ppd-warn { margin: 0; padding: 0 6px; font-size: var(--fs-sm); line-height: 1.35; color: var(--dim); }
+.ppd-warn[hidden] { display: none; }
+.ppd-list { display: flex; flex-direction: column; gap: 8px; }
+
+.ppd-card {
+  flex: none;
+  min-width: 0;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--warn);
+  border-radius: var(--r-m);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ppd-to { margin: 0; font-size: var(--fs-md); font-weight: 600; line-height: 1.3; color: var(--text); overflow-wrap: anywhere; }
+.ppd-detail { margin: 0; font: var(--fs-xs)/1.35 var(--mono); color: var(--dim); overflow-wrap: anywhere; }
+.ppd-title { font: 600 var(--fs-sm)/1.35 var(--mono); color: var(--text); white-space: pre-wrap; }
+.ppd-why { margin: 0; font-size: var(--fs-sm); line-height: 1.35; color: var(--dim); overflow-wrap: anywhere; }
+/* The exact words, wrapped, in the terminal's own face: their first lines until Read all, then every one. Never clipped, and
+   the buttons come after. */
+.ppd-text {
+  margin: 2px 0;
+  padding: 10px;
+  font: var(--fs-sm)/1.45 var(--mono);
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
+}
+/* A resume change can be pages long: its own scroll, so nothing is cut and Approve stays near. */
+.ppd-text.ppd-scroll { max-height: 34dvh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.ppd-text.ppd-scroll:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* A preview ends in an ellipsis that isn't part of the text, and says how much more there is just under it. */
+.ppd-text.ppd-cut::after { content: "…"; color: var(--dim); }
+.ppd-tappable { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ppd-more { display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap; }
+.ppd-toggle {
+  min-height: var(--tap);
+  padding: 0 14px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  touch-action: manipulation;
+}
+.ppd-toggle:active { background: var(--panel-2); }
+.ppd-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ppd-count { font-size: var(--fs-sm); line-height: 1.35; color: var(--dim); font-variant-numeric: tabular-nums; }
+.ppd-count[hidden] { display: none; }
+.ppd-note { margin: 0; font-size: var(--fs-sm); line-height: 1.35; color: var(--text); overflow-wrap: anywhere; }
+.ppd-note[hidden] { display: none; }
+.ppd-note.bad { color: var(--accent-text); }
+
+/* At least 12 px from the words and Read all above (6 px of the card's gap and this), so a tap meant for them can't arm. */
+.ppd-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 8px; }
+.ppd-actions button {
+  min-height: var(--tap);
+  min-width: 96px;
+  padding: 0 16px;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  border-radius: var(--r-s);
+  touch-action: manipulation;
+}
+.ppd-actions button:disabled { opacity: .5; }
+.ppd-actions button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ppd-elsewhere { flex: 1 1 14em; margin: 0; align-self: center; font-size: var(--fs-sm); line-height: 1.35; color: var(--dim); }
+.ppd-reject { color: var(--dim); background: transparent; border: 1px solid var(--line-strong); }
+.ppd-reject:active { background: var(--panel-2); }
+.ppd-approve { flex: 1 1 auto; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-strong); }
+.ppd-approve:active { background: var(--line-strong); }
+.ppd-approve.armed { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+
+/* Its own row in the assistant's grid (assistant.css), empty while there's nothing to show. On a phone the orb gives way to the words you
+   have to read. */
+@media (max-width: 879px) {
+  .assistant.has-drafts:not(.typing) .pp-orb { --size: 88px; }
+  .assistant.has-drafts.empty:not(.typing) .pp-orb { --size: 112px; }
+  .assistant.has-drafts.empty .pp-intro-line { display: none; }
+  /* Typing, with the keyboard up: there's no room, and the owner is busy with something else. */
+  .assistant.typing .ppd { display: none; }
+}
+@media (min-width: 880px) {
+  .assistant.has-drafts .ppd { max-height: 46dvh; padding: 0 var(--pp-gutter) 12px; }
+  .assistant.has-drafts.empty .pp-orb { --size: 112px; }
+  .ppd-approve { flex: 0 1 auto; }
+}
+
+@media (max-height: 520px) and (max-width: 879px) {
+  .ppd { max-height: 48dvh; }
+}

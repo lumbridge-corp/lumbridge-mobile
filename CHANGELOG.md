@@ -4,6 +4,10 @@ Lumbridge Mobile: the phone app and the server it talks to.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-17
+
+- README: a header image and a screenshot, in `docs/assets/`. No code changes.
+
 ## [0.1.0] - 2026-11-13
 
 The first public release. It has been in daily use on one tailnet; this is the first version anyone else can build.

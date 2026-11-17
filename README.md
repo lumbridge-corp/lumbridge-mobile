@@ -1,3 +1,5 @@
+![Lumbridge Mobile: Your agents, from your phone.](docs/assets/banner.jpg)
+
 # Lumbridge Mobile
 
 Your coding agents' terminals, notes and tasks on your phone. For people who run agents in
@@ -5,6 +7,8 @@ Your coding agents' terminals, notes and tasks on your phone. For people who run
 small server you run next to core, on your own tailnet, with nothing in between.
 
 Part of [Lumbridge](https://lumbridgecorp.com) ([all repositories](https://github.com/lumbridge-corp)). In daily use.
+
+<p align="center"><img src="docs/assets/screenshot.png" alt="The Agents screen of Lumbridge Mobile: three agents waiting on a question, an error and a permission, with one-tap answers, then the agents that are done and working." width="320"></p>
 
 ## Status
 
